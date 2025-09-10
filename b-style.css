@@ -1,0 +1,297 @@
+@font-face{
+    font-family: 'VALORANT';
+    src: url('VALORANT.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ======= ESTILOS SENCILLOS Y CLAROS ======= */
+:root{
+    --ancho-carta:120px;
+    --alto-carta:160px;
+}
+*{ box-sizing:border-box }
+body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 👈 evita que aparezcan barras */
+
+    margin:0;
+    font-family: 'VALORANT', sans-serif;
+    color:#ffffff;
+    /* Fondo por defecto (se cambia al cargar cada nivel) */
+    background:#0b243b url('fondo.png') center/cover fixed no-repeat;
+}
+
+/* 🔮 Check inspirado en Valorant */
+.valorant-check {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(186,85,211,0.3) 0%, transparent 70%);
+  box-shadow: 0 0 30px rgba(255,20,147,0.6), 0 0 60px rgba(186,85,211,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 9999;
+}
+
+.valorant-check::after {
+  content: "";
+  width: 35px;
+  height: 70px;
+  border-right: 8px solid #ff1493; /* Fucsia Reyna */
+  border-bottom: 8px solid #8a2be2; /* Violeta Reyna */
+  transform: rotate(45deg) scale(0);
+  animation: none;
+}
+
+/* ✨ Animaciones */
+@keyframes popCheck {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+@keyframes drawCheck {
+  0% { transform: rotate(45deg) scale(0); }
+  100% { transform: rotate(45deg) scale(1); }
+}
+
+/* Efecto activo */
+.valorant-check.active {
+  animation: popCheck 0.6s ease forwards;
+}
+
+.valorant-check.active::after {
+  animation: drawCheck 0.4s ease forwards 0.4s;
+}
+
+.check-valorant {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 5rem;
+  font-weight: bold;
+  color: #a020f0; /* violeta Reyna */
+  text-shadow: 0 0 20px #ff0080, 0 0 40px #8000ff;
+  animation: checkValorant 0.6s ease forwards;
+  z-index: 9999;
+}
+
+@keyframes checkValorant {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  40%  { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  60%  { transform: translate(-50%, -50%) scale(0.9); }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+
+
+.capa{
+    min-height:100dvh;
+    padding:24px 16px 40px;
+    /* background: radial-gradient(transparent, rgba(0, 0, 0, 0.7) 60%); */
+}
+h1{
+     margin:0 0 10px;
+     text-align:center;
+     font-weight:800
+     }
+
+#panel{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+    justify-content:center;
+    /* background:rgba(0, 0, 0, 0.55); padding:10px 12px; border-radius:10px; */
+
+    /* Degradado estático: negro → blanco → negro */
+    /* background: linear-gradient(to bottom, #000000, #000000, #6A0DAD); */
+
+}
+
+#panel .dato{
+    padding:4px 8px; 
+    border-radius:8px;
+}
+
+#btnComenzar {
+    font-family: 'Valorant';
+    position: relative;
+    padding: 7px 15px;
+    border: none;
+    outline: none;
+    color: #FAF5F0;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden; /* para que no se salga el pseudo-elemento */
+    background: linear-gradient(to bottom, #000000, #b900aa); /* degradado inicial */
+    z-index: 1;
+    
+  }
+
+  /* Pseudo-elemento con el degradado invertido */
+  #btnComenzar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #6A0DAD, #000000);
+    opacity: 0; /* oculto por defecto */
+    transition: opacity 0.8s ease; /* transición suave */
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  /* Al pasar el cursor, se muestra el degradado invertido */
+  #btnComenzar:hover::after {
+    opacity: 1;
+  }
+
+  #btnComenzar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #btnComenzar:active {
+    transform: scale(0.95);
+  }
+
+
+#tablero{
+    width:min(95vw,560px);
+    margin:18px auto 10px;
+    display:grid; 
+    grid-template-columns:repeat(4, var(--ancho-carta));
+    gap:10px; justify-content:center;
+}
+
+.carta{
+    width:var(--ancho-carta); 
+    height:var(--alto-carta);
+    position:relative; 
+    perspective:800px; 
+    cursor:pointer; 
+    user-select:none;
+}
+
+.reverso, .cara{
+    position:absolute; 
+    inset:0; 
+    border-radius:12px; 
+    backface-visibility:hidden;
+    transition: transform 0.6s ease; /* <-- animación suave */
+}
+
+.reverso{ 
+    background:#12263a url('interrogante.webp') center/cover no-repeat; 
+    transform: rotateY(0); /* posición inicial */
+}
+
+.cara{ 
+    transform: rotateY(180deg); 
+    overflow:hidden;
+}
+
+
+.cara img{ 
+    width:100%; 
+    height:100%; 
+    object-fit:cover; 
+    display:block;
+}
+
+/* Voltear (simple con rotateY) */
+.carta.volteada .cara{ transform:rotateY(0) }
+.carta.volteada .reverso{ transform:rotateY(180deg) }
+
+/* Carta acertada: se “marca” con un check y un leve resalto */
+.carta.acertada .cara{ 
+    filter:grayscale(.2) brightness(1.05) 
+}
+
+.carta.acertada::after{
+    content:""; 
+    position:absolute; 
+    inset:0; 
+    border-radius:12px;
+    background:url('check.png') center/55px 55px no-repeat rgba(0,255,153,.15)
+}
+
+/* Tabla de jugadores */
+table{
+    width:min(95vw,720px); 
+    margin:10px auto; 
+    border-collapse:collapse; 
+    background:rgba(0,0,0,.55); 
+    border-radius:10px; 
+    overflow:hidden 
+}
+
+th,td{ 
+    padding:8px 10px; 
+    border-bottom:1px solid rgba(255,255,255,.08); 
+    text-align:left;
+}
+
+th{ 
+    background:rgba(255,255,255,.06) 
+}
+
+.center{text-align:center}
+
+#winnerBanner {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.5s;
+}
+
+#winnerBanner.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#winnerBanner h1 {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #ff4655; /* rojo Valorant */
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  animation: winnerAnim 2s ease-out forwards;
+}
+
+@keyframes winnerAnim {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+    letter-spacing: 50px;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+    letter-spacing: 15px;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    letter-spacing: 10px;
+  }
+}

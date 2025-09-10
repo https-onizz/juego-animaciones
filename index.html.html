@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="b-style.css">
+  <title>Juego Memoria — versión para aprendices</title>
+
+  
+</head>
+<body>
+<div class="capa">
+  <h1>Juego de memoria</h1>
+
+  <!-- ======= PANEL SUPERIOR CON DATOS ======= -->
+  <div id="panel">
+    <span id="datoJugador"  class="dato">Jugador: —</span>
+    <span id="datoNivel"    class="dato">Nivel: 1</span>
+    <span id="datoAciertos" class="dato">Aciertos: 0</span>
+    <span id="datoIntentos" class="dato">Intentos: 0</span>
+    <span id="datoTiempo"   class="dato">Tiempo: 30</span>
+    <button id="btnComenzar">Comenzar</button>
+  </div>
+
+  <h3 class="center" style="margin:14px 0 6px">Tablero de juego</h3>
+  <div id="tablero" aria-label="Tablero de cartas"></div>
+
+  <!-- ======= TABLA DE REGISTRO DE JUGADORES ======= -->
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Jugador</th>
+        <th>Nivel alcanzado</th>
+        <th>Intentos</th>
+        <th>Aciertos</th>
+        <th>Tiempo restante</th>
+      </tr>
+    </thead>
+    <tbody id="tablaJugadores"></tbody>
+  </table>
+</div>
+
+<!-- ======= AUDIOS: IDs con nombres iguales al archivo para no confundirse ======= -->
+<audio id="audioClickMp3"    src="03-sonidos/click.mp3"    preload="auto"></audio>
+<audio id="audioCorrerMp3"   src="03-sonidos/correr.mp3"auto"></audio>
+<audio id="audioDerrotaMp3"  src="03-sonidos/derrota.mp3"  preload="auto"></audio>
+<audio id="audioErrorMp3"    src="03-sonidos/error.mp3"    preload="auto"></audio>
+<audio id="audioJugarMp3"    src="03-sonidos/jugar.mp3"    preload="auto" loop></audio>
+<audio id="audioSuccessMp3"  src="03-sonidos/success.mp3"  preload="auto"></audio>
+<audio id="audioTriunfoMp3"  src="03-sonidos/triunfo.mp3"  preload="auto"></audio>
+
+<div class="reyna-portal top-left"></div>
+<div class="reyna-portal top-right"></div>
+<div class="reyna-portal bottom-left"></div>
+<div class="reyna-portal bottom-right"></div>
+
+<div class="valorant-check" id="valorantCheck"></div>
+
+<div class="overlay-reyna"></div>
+
+
+
+<!-- Pantalla de Ganador -->
+<div id="winnerBanner" class="hidden">
+  <h1>GANADOR</h1>
+</div>
+
+
+<script src="c-app.js"></script>
+</body>
+</html>
